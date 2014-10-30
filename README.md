@@ -20,7 +20,7 @@ HOW TO BUILD
 set up a plain cm11 build tree (see cm doc)
 
 2) import the local manifest:
-git clone https://github.com/fishpepper/android_device_pipo_m8hd.git device/pipo/m8hd
+git clone https://github.com/stevejcl/android_device_pipo_m8hd.git device/pipo/m8hd
 cp device/pipo/m8hd/manifest/m8hd.xml .repo/local_manifests/
 
 3) download the rom :
