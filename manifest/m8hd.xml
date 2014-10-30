@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+<project path="device/pipo/m8hd" name="stevejcl/android_device_pipo_m8hd" remote="github" revision="master"/>
+</manifest>
