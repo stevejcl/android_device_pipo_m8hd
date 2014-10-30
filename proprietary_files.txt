@@ -167,20 +167,20 @@ system/lib/librkswscale.so
 system/lib/librk_on2.so
 system/lib/librk_demux.so
 
-system/lib/libapecdec.so
+system/lib/libapedec.so
 system/lib/libdrmdecrypt.so
 system/lib/libgcastv2_base.so
 system/lib/libgcastv2_support.so
 system/lib/libglib.so
 system/lib/libhevcdec.so
 system/lib/libjgcastservice.so
-system/lib/libomx_core.so
+system/lib/libOMX_Core.so
 system/lib/libomxvpu_dec.so
 system/lib/libomxvpu_enc.so
 system/lib/librkffplayer.so
 system/lib/libwebrtc_audio_coding.so
 system/lib/libwnndict.so
-system/lib/libwnnengdict.so
+system/lib/libwnnengdic.so
 
 
 #wlan
