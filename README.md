@@ -6,7 +6,11 @@ credits goes to fishpepper who makes the magic on M7pro
 
 what is working?
 
+boot only but reboot within cyanogen logo
+
 what is not working?
+
+cyanogen not currently working
 
 NOT tested:
 - GSM module (mine does not have it)
@@ -23,22 +27,22 @@ default directory is
 $ cd ~/android/system/
 
 2)Add Local_manifests
+
 create directory
 
 $ mkdir -p  .repo/local_manifests
 
-<code>
-
-<?xml version="1.0" encoding="UTF-8"?>
-<manifest>
-<project path="device/pipo/m8hd" name="stevejcl/android_device_pipo_m8hd" remote="github" revision="master"/>
-</manifest>
-
-</code>
+----------------------------------------------------------------
+	<?xml version="1.0" encoding="UTF-8"?>
+	<manifest>
+	<project path="device/pipo/m8hd" name="stevejcl/android_device_pipo_m8hd" remote="github" revision="master"/>
+	</manifest>
+----------------------------------------------------------------
 
 Save the file in .repo/local_manifests/m8hd.xml
 
 3)Download the source code
+
 To start the download of all the source code to your computer: 
 
 $ repo sync -c
@@ -88,7 +92,7 @@ pressing power on for 5-8s. Then release both.
 
 1) verify that your board is the same as mine by running > rkflashtool p
 FIRMWARE_VER:4.4.2
-MACHINE_MODEL:m8hd
+MACHINE_MODEL:M8HD
 MACHINE_ID:007
 MANUFACTURER:RK30SDK
 MAGIC: 0x5041524B
@@ -97,10 +101,10 @@ MACHINE: 3066
 CHECK_MASK: 0x80
 KERNEL_IMG: 0x60408000
 #RECOVER_KEY: 1,1,0,20,0
-CMDLINE:console=ttyFIQ0 androidboot.console=ttyFIQ0 init=/init initrd=0x62000000,0x00800000 mtdparts=rk29xxnand:0x00002000@0x00002000(misc),0x00006000@0x00004000(kernel),0x00006000@0x0000a000(boot),0x00010000@0x00010000(recovery),0x00020000@0x00020000(backup),0x00040000@0x00040000(cache),0x00e00000@0x00080000(userdata),0x00002000@0x00e80000(metadata),0x00002000@0x00e82000(kpanic),0x00140000@0x00e84000(system),-@0x00fc4000(user)
+CMDLINE:console=ttyFIQ0 androidboot.console=ttyFIQ0 init=/init initrd=0x62000000,0x00800000 mtdparts=rk29xxnand:0x00002000@0x00002000(misc),0x00006000@0x00004000(kernel),0x00006000@0x0000a000(boot),0x00010000@0x00010000(recovery),0x00020000@0x00020000(backup),0x00040000@0x00040000(cache),0x00800000@0x00080000(userdata),0x00002000@0x00880000(metadata),0x00002000@0x00882000(kpanic),0x00180000@0x00884000(system),-@0x00A04000(user)
 
 2) verify the adresses for boot and system location (swap address before and after the @)
-0x00006000@0x0000a000(boot)
+0x00180000@0x00884000(boot)
 0x00140000@0x00e84000(system)
 
 3) flash the images (this will reboot after flashing):
