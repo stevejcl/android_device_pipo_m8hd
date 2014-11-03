@@ -18,18 +18,62 @@ HOW TO BUILD
 
 1)
 set up a plain cm11 build tree (see cm doc)
+default directory is
 
-2) import the local manifest:
-git clone https://github.com/stevejcl/android_device_pipo_m8hd.git device/pipo/m8hd
-cp device/pipo/m8hd/manifest/m8hd.xml .repo/local_manifests/
+$ cd ~/android/system/
+
+2)Add Local_manifests
+create directory
+
+$ mkdir -p  .repo/local_manifests
+
+<code>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+<project path="device/pipo/m8hd" name="stevejcl/android_device_pipo_m8hd" remote="github" revision="master"/>
+</manifest>
+
+</code>
+
+Save the file in .repo/local_manifests/m8hd.xml
+
+3)Download the source code
+To start the download of all the source code to your computer: 
+
+$ repo sync -c
+
+4)Get prebuilt apps
+
+$ ./vendor/cm/get-prebuilts
+
+You won't see any confirmation- just another prompt. But this should cause some prebuilt apps to be loaded and installed into the source code. Once completed, this does not need to be done again. 
+
+then enter: 
+
+$ source build/envsetup.sh
+
 
 3) download the rom :
-Place it in the source tree under devices/pipo/m8hd/pipo_rom/pipo_rom.img
-run./fetch_prebuilts.sh
+
+First create directory to save the rom
+
+$ mkdir -p  device/pipo/m8hd/pipo_rom
+
+download here : http://pan.baidu.com/wap/link?uk=386307513&shareid=2688745901&third=0
+
+Name it 20140606.rar and place it in the source tree under device/pipo/m8hd/pipo_rom/20140606.rar
+
+Then run
+
+$ ./device/pipo/m8hd/fetch_prebuilts.sh
 
 This will extract all binary blobs from that rom
 
 4) build the source by calling brunch m8hd
+
+$ brunch m8hd
+
 
 HOW TO FLASH
 =============================
