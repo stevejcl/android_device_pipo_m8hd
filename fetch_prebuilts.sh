@@ -1,6 +1,6 @@
 #!/bin/bash
-ROM_IMG="pipo_rom.img"
-MD5="adad8a0177b893ad339fecaada7a89e9"
+ROM_IMG="20140606.rar"
+MD5="078ecdc6e156502f7f828dc101fb034b"
 
 function show_message {
 	echo -e "\e[0;32m> $1\e[m"
@@ -13,7 +13,7 @@ if [ ! -e "pipo_rom/$ROM_IMG" ]; then
 	fi
 
 	show_message "could not find required rom. please download $ROM_IMG from:"
-	show_message "http://www.mediafire.com/download/vsl4l9hstydb2yj/M7_pro_3G_&_NO_3G_Chinese_4.4_20140326.rar\n"
+	show_message "http://pan.baidu.com/wap/link?uk=386307513&shareid=2688745901&third=0\n"
 	ROM_FOLDER=`pwd`
 	show_message "> then, please place ssave it as $ROM_FOLDER/$ROM_IMG\n"
 	exit 0
@@ -21,21 +21,24 @@ if [ ! -e "pipo_rom/$ROM_IMG" ]; then
 	#wget $ROM_URL -O pipo_rom/$ROM_IMG || exit 0
 fi
 
-#MD5_ROM=`md5sum pipo_rom/$ROM_IMG|cut -d " " -f1`
-#if [ "$MD5" != "$MD5_ROM" ]; then
-#	show_message "ERROR: md5sum of rom ($MD5_ROM) mismatch to expected md5sum ($MD5). please download the right rom"
-#	exit 0
-#fi
+MD5_ROM=`md5sum pipo_rom/$ROM_IMG|cut -d " " -f1`
+if [ "$MD5" != "$MD5_ROM" ]; then
+	show_message "ERROR: md5sum of rom ($MD5_ROM) mismatch to expected md5sum ($MD5). please download the right rom"
+	exit 0
+fi
 
 
 cd pipo_rom || exit 0
 
 if [ ! -e rktools ]; then
-	show_message -e "\e[0;32m> will now fetch and build rktools\e[m"
-	git clone https://github.com/rk3066/rk-tools.git rktools
-	cd rktools
-	make || exit 0
-        cd ..
+	show_message -e "\e[0;32m> will now get tools\e[m"
+	mkdir rktools
+	cp ../rktools/* rktools/
+	#show_message -e "\e[0;32m> will now fetch and build rktools\e[m"
+	#git clone https://github.com/rk3066/rk-tools.git rktools
+	#cd rktools
+	#make || exit 0
+    #    cd ..
 fi
 
 #if [ ! -e bootimg-tools ]; then
@@ -53,11 +56,19 @@ cd extracted
 
 if [ ! -e Image ]; then
 	show_message "unpacking fw upgrade..."
-	show_message "running img_unpack" 
-	../rktools/img_unpack pipo_rom.img tmp.img || exit 0
+	unrar x ../$ROM_IMG || exit 0
+	mv M8*.img pipo_rom.img || exit 0
+	show_message "running img_unpack"
+    mkdir output
+    ../rktools/rkImageMaker -unpack pipo_rom.img output || exit 0
+
 	show_message "unpacking using afptool"
-	../rktools/afptool -unpack tmp.img ./ || exit 0
-	rm -f tmp.img
+	../rktools/afptool -unpack output/firmware.img ./ || exit 0
+
+    rm -f output/firmware.img
+    rm -f output/boot.bin
+	rmdir output	
+		
 	show_message "extracting boot.img and system.img"
 	mkdir tmp
 	mv * tmp 2> /dev/null #suppress warning
@@ -67,13 +78,15 @@ fi
 
 if [ ! -e root ]; then
 	show_message "extracting the kernel and the root fs from boot.img"
-	../rktools/rkkernel -unpack Image/boot.img Image/boot.img-raw || exit 0
-	../rktools/rkkernel -unpack Image/kernel.img kernel || exit 0
+    ../rktools/imgrepackerrk Image/boot.img
+    cp Image/boot.img.dump/kernel kernel
+
 	mkdir root; 
-	cd root; 
-	show_message "extracting root filesystem"
-	zcat ../Image/boot.img-raw|cpio -i || exit 0
-	cd ..
+    cp -R Image/boot.img.dump/ramdisk.dump/* root
+	
+	rm -Rf Image/boot.img.dump/ramdisk.dump
+	rm -Rf Image/boot.img.dump
+
 fi
 
 if [ ! -e system ]; then

@@ -100,6 +100,9 @@ system/vendor/lib/libwvm.so
 system/vendor/lib/libWVStreamControlAPI_L3.so
 system/vendor/lib/drm/libdrmwvmplugin.so
 system/vendor/lib/mediadrm/libwvdrmengine.so
+system/vendor/media/PFFprec_600.emd
+system/vendor/media/LMspeed_508.emd
+
 #maybe this fixes bt?
 #system/framework/com.broadcom.bt.jar
 #system/lib/libbluetoothd.so
@@ -115,6 +118,7 @@ system/etc/firmware/fw_RK903_ag.bin
 system/etc/firmware/fw_RK903_ag_apsta.bin
 system/etc/firmware/fw_RK903_ag_p2p.bin
 system/etc/firmware/nvram_AP6330.txt
+system/etc/firmware/config.txt
 
 system/etc/firmware/nvram_RK903_26M.cal
 system/etc/firmware/fw_awnb108.bin
@@ -180,8 +184,10 @@ system/lib/libomxvpu_enc.so
 system/lib/librkffplayer.so
 system/lib/libwebrtc_audio_coding.so
 system/lib/libwnndict.so
-system/lib/libwnnengdic.so
-
+system/lib/libWnnEngDic.so
+system/lib/libRkOMX_Resourcemanager.so
+system/lib/librockchip_update_jni.so
+system/lib/libfrsdk.so
 
 #wlan
 system/etc/wifi/p2p_supplicant_overlay.conf
